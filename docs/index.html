@@ -8,74 +8,17 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  background: #0a0a0a;
-  color: #e0e0e0;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  padding: 20px;
-  text-align: center;
-  background: #111;
-  border-bottom: 1px solid #222;
-}
-
-h1 {
-  margin: 0;
-  font-size: 28px;
-  color: #00e0ff;
-}
-
-.panel {
-  margin: 20px;
-  padding: 20px;
-  background: #111;
-  border-radius: 12px;
-  border: 1px solid #222;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.panel-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #00e0ff;
-}
-
-.panel-badge {
-  background: #00e0ff;
-  color: #000;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-}
-
-.hero-title {
-  font-size: 22px;
-  margin-top: 10px;
-  color: #fff;
-}
-
-.hero-subtitle {
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 10px;
-}
-
-a {
-  color: #00e0ff;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
+body { margin:0; padding:0; background:#0a0a0a; color:#e0e0e0; font-family:Arial, sans-serif; }
+header { padding:20px; text-align:center; background:#111; border-bottom:1px solid #222; }
+h1 { margin:0; font-size:28px; color:#00e0ff; }
+.panel { margin:20px; padding:20px; background:#111; border-radius:12px; border:1px solid #222; }
+.panel-header { display:flex; justify-content:space-between; align-items:center; }
+.panel-title { font-size:20px; font-weight:bold; color:#00e0ff; }
+.panel-badge { background:#00e0ff; color:#000; padding:4px 10px; border-radius:6px; font-size:12px; }
+.hero-title { font-size:22px; margin-top:10px; color:#fff; }
+.hero-subtitle { font-size:14px; color:#aaa; margin-bottom:10px; }
+a { color:#00e0ff; text-decoration:none; }
+a:hover { text-decoration:underline; }
 </style>
 </head>
 
@@ -85,322 +28,182 @@ a:hover {
 </header>
 
 <!-- Nodo Locale -->
-<section class="panel" id="local-node">
+<section class="panel">
   <div class="panel-header">
     <div class="panel-title">Nodo Locale</div>
     <div class="panel-badge">Core</div>
   </div>
   <div class="hero-title">GhostTrack Node Pragone</div>
-  <div class="hero-subtitle">
-    Nodo operativo nella costellazione GhostTrack, colline dell'Oltrepò Pavese.
-  </div>
+  <div class="hero-subtitle">Nodo operativo nella costellazione GhostTrack.</div>
   <ul>
     <li><b>Ruolo:</b> Geo‑Sentinel / Mesh‑Ready</li>
     <li><b>Posizione:</b> Pragone, Pietra de' Giorgi (PV)</li>
-    <li><b>Modalità:</b> Offline‑first, resiliente, zero‑trust</li>
+    <li><b>Modalità:</b> Offline‑first, resiliente</li>
+  </ul>
+</section>
+
+<!-- System Status -->
+<section class="panel">
+  <div class="panel-header">
+    <div class="panel-title">GhostTrack System</div>
+    <div class="panel-badge">Status</div>
+  </div>
+  <div class="hero-title">Stato del Nodo</div>
+  <div class="hero-subtitle">Informazioni locali, uptime e build info.</div>
+  <ul>
+    <li><b>Versione Hub:</b> 1.0</li>
+    <li><b>Build:</b> Wed Jan  7 19:11:26 CET 2026</li>
+    <li><b>Uptime Browser:</b> <span id="uptime">0s</span></li>
+    <li><b>Modalità:</b> Offline‑first</li>
   </ul>
 </section>
 
 <!-- Geo‑Sentinel -->
-<section class="panel" id="geo-sentinel">
+<section class="panel">
   <div class="panel-header">
     <div class="panel-title">Geo‑Sentinel</div>
     <div class="panel-badge">Territory</div>
   </div>
-
   <div class="hero-title">Nodo Territoriale: Pragone</div>
-  <div class="hero-subtitle">
-    Monitoraggio locale, mappe offline, posizione nodo e area operativa.
-  </div>
-
-  <div id="map" style="height: 420px; border-radius: 12px; margin-top: 10px;"></div>
-
-  <p style="margin-top:10px; font-size:12px; color:#888;">
-    Geo‑Sentinel attivo. Coordinate nodo locale: <code>45.0389, 9.2430</code>.
-  </p>
+  <div class="hero-subtitle">Monitoraggio locale e area operativa.</div>
+  <div id="map" style="height:420px; border-radius:12px;"></div>
 </section>
 
-<!-- BOINC Hub -->
-<section class="panel" id="boinc-hub">
+<!-- Starlink -->
+<section class="panel">
   <div class="panel-header">
-    <div class="panel-title">BOINC Hub</div>
-    <div class="panel-badge">Compute</div>
+    <div class="panel-title">Starlink Link</div>
+    <div class="panel-badge">Satellite</div>
   </div>
-  <div class="hero-title">Calcolo distribuito</div>
-  <div class="hero-subtitle">
-    Accesso rapido a progetti BOINC reali.
-  </div>
+  <div class="hero-title">Monitoraggio Link</div>
+  <div class="hero-subtitle">Stato simulato del link Starlink.</div>
   <ul>
-    <li><a href="https://boinc.berkeley.edu/projects.php" target="_blank">Elenco progetti BOINC</a></li>
-    <li><a href="https://einsteinathome.org" target="_blank">Einstein@Home</a></li>
-    <li><a href="https://universeathome.pl" target="_blank">Universe@Home</a></li>
+    <li><b>Stato:</b> <span id="sl-status">checking…</span></li>
+    <li><b>Latenza:</b> <span id="sl-latency">–</span></li>
+    <li><b>Down:</b> <span id="sl-down">–</span></li>
+    <li><b>Up:</b> <span id="sl-up">–</span></li>
   </ul>
 </section>
 
-<!-- SETI / Radio -->
-<section class="panel" id="seti-hub">
+<!-- Mesh -->
+<section class="panel">
   <div class="panel-header">
-    <div class="panel-title">SETI / Radio</div>
-    <div class="panel-badge">Signals</div>
-  </div>
-  <div class="hero-title">Osservazione radio</div>
-  <div class="hero-subtitle">
-    Collegamenti a risorse reali per radioastronomia e segnali.
-  </div>
-  <ul>
-    <li><a href="https://www.radio-astronomy.org" target="_blank">Società di Radioastronomia</a></li>
-    <li><a href="http://websdr.org" target="_blank">WebSDR pubblici</a></li>
-    <li><a href="https://sara.org" target="_blank">SARA</a></li>
-  </ul>
-</section>
-
-<!-- Mesh & Tools -->
-<section class="panel" id="mesh-tools">
-  <div class="panel-header">
-    <div class="panel-title">Mesh & Tools</div>
+    <div class="panel-title">Mesh Node</div>
     <div class="panel-badge">Network</div>
   </div>
-  <div class="hero-title">Strumenti operativi</div>
-  <div class="hero-subtitle">
-    Collegamenti a strumenti reali per rete, diagnostica, OSINT.
-  </div>
+  <div class="hero-title">Stato Mesh Locale</div>
+  <div class="hero-subtitle">Simulazione handshake e qualità link.</div>
   <ul>
-    <li><a href="https://web.telegram.org" target="_blank">Telegram Web</a></li>
-    <li><a href="https://signal.org" target="_blank">Signal</a></li>
-    <li><a href="https://onionsearchengine.com" target="_blank">Onion Search (OSINT)</a></li>
-    <li><a href="https://nmap.online" target="_blank">Nmap Online</a></li>
+    <li><b>Handshake:</b> <span id="mesh-handshake">pending…</span></li>
+    <li><b>Qualità Link:</b> <span id="mesh-quality">–</span></li>
+    <li><b>Nodi Vicini:</b> <span id="mesh-nodes">–</span></li>
+  </ul>
+</section>
+
+<!-- OSINT -->
+<section class="panel">
+  <div class="panel-header">
+    <div class="panel-title">Situational Awareness</div>
+    <div class="panel-badge">OSINT</div>
+  </div>
+  <div class="hero-title">Raccolta OSINT</div>
+  <ul>
+    <li><a href="https://www.flightradar24.com" target="_blank">Flightradar24</a></li>
+    <li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li>
+    <li><a href="https://earthquake.usgs.gov/earthquakes/map/" target="_blank">USGS Earthquakes</a></li>
+    <li><a href="https://www.windy.com" target="_blank">Windy</a></li>
   </ul>
 </section>
 
 <!-- Red Bull TV -->
-<section class="panel" id="redbull-tv">
+<section class="panel">
   <div class="panel-header">
     <div class="panel-title">Red Bull TV</div>
     <div class="panel-badge">Stream</div>
   </div>
   <div class="hero-title">Canale Live</div>
-  <div class="hero-subtitle">
-    Collegamento diretto a Red Bull TV per streaming esterno.
-  </div>
-  <p>
-    <a href="https://www.redbull.com/int-en/tv" target="_blank">Apri Red Bull TV in una nuova scheda</a>
-  </p>
+  <p><a href="https://www.redbull.com/int-en/tv" target="_blank">Apri Red Bull TV</a></p>
 </section>
 
 <!-- Telemetria -->
-<section class="panel" id="telemetry-panel">
+<section class="panel">
   <div class="panel-header">
-    <div class="panel-title">Telemetria Locale</div>
+    <div class="panel-title">Telemetria</div>
     <div class="panel-badge">Sensors</div>
   </div>
-
-  <div class="hero-title">Raccolta dati ambientali</div>
-  <div class="hero-subtitle">
-    Lettura sensori browser: geolocalizzazione, orientamento (se disponibili).
-  </div>
-
-  <pre id="telemetry-output" style="background:#000; color:#0f0; padding:10px; border-radius:8px; height:160px; overflow:auto; font-size:12px;">Telemetria in attesa...</pre>
+  <pre id="telemetry-output" style="background:#000; color:#0f0; padding:10px; height:160px; overflow:auto;">Telemetria in attesa...</pre>
 </section>
 
-<!-- Console Operativa -->
-<section class="panel" id="console-panel">
+<!-- Console -->
+<section class="panel">
   <div class="panel-header">
     <div class="panel-title">Console Operativa</div>
     <div class="panel-badge">Shell</div>
   </div>
-  <div class="hero-title">Console locale</div>
-  <div class="hero-subtitle">
-    Esegue comandi base lato browser: ping HTTP, apertura link, echo.
-  </div>
-
-  <div style="background:#000; color:#0f0; padding:10px; border-radius:8px; font-family:monospace; font-size:12px; height:180px; overflow:auto;" id="console-output">
-    GhostTrack Console pronta. Digita "help" per i comandi disponibili.
-  </div>
-  <input id="console-input" type="text" placeholder="comando..." style="width:100%; margin-top:8px; padding:6px; border-radius:6px; border:1px solid #333; background:#050505; color:#eee;">
+  <div id="console-output" style="background:#000; color:#0f0; padding:10px; height:180px; overflow:auto;">GhostTrack Console pronta. Digita "help".</div>
+  <input id="console-input" type="text" style="width:100%; margin-top:8px; padding:6px; background:#050505; color:#eee;">
 </section>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// Geo‑Sentinel Pragone
+// Uptime
+let start = Date.now();
+setInterval(() => {
+  document.getElementById("uptime").textContent =
+    Math.floor((Date.now() - start)/1000) + "s";
+}, 1000);
+
+// Geo‑Sentinel
 const NODE_LAT = 45.0389;
 const NODE_LON = 9.2430;
+const map = L.map('map').setView([NODE_LAT, NODE_LON], 14);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.marker([NODE_LAT, NODE_LON]).addTo(map).bindPopup("GhostTrack Node Pragone");
+L.circle([NODE_LAT, NODE_LON], {radius:600, color:"#00b7ff", fillOpacity:0.15}).addTo(map);
 
-function initGeoSentinel() {
-  const map = L.map('map', {
-    zoomControl: true,
-    attributionControl: false
-  }).setView([NODE_LAT, NODE_LON], 14);
-
-  const offlineTiles = L.tileLayer('./maps/tiles/{z}/{x}/{y}.png', {
-    minZoom: 1,
-    maxZoom: 18,
-    errorTileUrl: './maps/blank.png'
-  });
-
-  const onlineTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19
-  });
-
-  const baseLayers = {
-    "Offline": offlineTiles,
-    "Online": onlineTiles
-  };
-
-  offlineTiles.addTo(map);
-  L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
-
-  const nodeMarker = L.marker([NODE_LAT, NODE_LON]).addTo(map);
-  nodeMarker.bindPopup("<b>GhostTrack Node</b><br>Pragone, Pietra de' Giorgi");
-
-  const area = L.circle([NODE_LAT, NODE_LON], {
-    radius: 600,
-    color: "#00b7ff",
-    fillColor: "#00b7ff",
-    fillOpacity: 0.15
-  }).addTo(map);
-
-  const legend = L.control({ position: "bottomleft" });
-  legend.onAdd = function () {
-    const div = L.DomUtil.create("div", "legend");
-    div.style.background = "#111";
-    div.style.padding = "10px";
-    div.style.borderRadius = "8px";
-    div.style.fontSize = "12px";
-    div.innerHTML = `
-      <b style="color:#00e0ff;">Legenda</b><br>
-      • <span style="color:#00b7ff;">Cerchio</span>: area operativa<br>
-      • <span style="color:#fff;">Marker</span>: nodo locale<br>
-      • Offline/Online: selettore layer
-    `;
-    return div;
-  };
-  legend.addTo(map);
-
-  map.on("mousemove", function (e) {
-    if (!window.coordBox) {
-      window.coordBox = L.control({ position: "bottomright" });
-      window.coordBox.onAdd = function () {
-        const div = L.DomUtil.create("div", "coords");
-        div.style.background = "#111";
-        div.style.padding = "6px";
-        div.style.borderRadius = "6px";
-        div.style.fontSize = "11px";
-        div.style.opacity = "0.8";
-        div.id = "coordBox";
-        return div;
-      };
-      window.coordBox.addTo(map);
-    }
-    document.getElementById("coordBox").innerHTML =
-      `Lat: ${e.latlng.lat.toFixed(5)}<br>Lon: ${e.latlng.lng.toFixed(5)}`;
-  });
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const userLat = pos.coords.latitude;
-      const userLon = pos.coords.longitude;
-
-      L.marker([userLat, userLon]).addTo(map).bindPopup("La tua posizione");
-    });
-  }
+// Starlink
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function updateStarlink(){
+  document.getElementById("sl-status").textContent="Online";
+  document.getElementById("sl-latency").textContent=rand(25,55)+" ms";
+  document.getElementById("sl-down").textContent=rand(80,180)+" Mbps";
+  document.getElementById("sl-up").textContent=rand(10,25)+" Mbps";
 }
+updateStarlink(); setInterval(updateStarlink,5000);
 
-initGeoSentinel();
+// Mesh
+function updateMesh(){
+  document.getElementById("mesh-handshake").textContent="OK";
+  document.getElementById("mesh-quality").textContent=rand(60,99)+"%";
+  document.getElementById("mesh-nodes").textContent=rand(0,3);
+}
+setTimeout(updateMesh,1500); setInterval(updateMesh,7000);
 
-// Telemetria base
-(function() {
-  const out = document.getElementById('telemetry-output');
-  if (!out) return;
-
-  function log(line) {
-    out.textContent += "\n" + line;
-    out.scrollTop = out.scrollHeight;
-  }
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      log("Geoloc: " + pos.coords.latitude.toFixed(5) + ", " + pos.coords.longitude.toFixed(5));
-    }, () => {
-      log("Geoloc: non autorizzata.");
-    });
-  } else {
-    log("Geoloc non supportata.");
-  }
-
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener("deviceorientation", function(e) {
-      log("Orientamento: alpha=" + (e.alpha||0).toFixed(1) +
-          " beta=" + (e.beta||0).toFixed(1) +
-          " gamma=" + (e.gamma||0).toFixed(1));
-    }, { once: true });
-  } else {
-    log("Orientamento non supportato.");
+// Telemetria
+(function(){
+  const out=document.getElementById("telemetry-output");
+  function log(t){out.textContent+="\n"+t; out.scrollTop=out.scrollHeight;}
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p=>log("Geoloc: "+p.coords.latitude+", "+p.coords.longitude),
+                                             ()=>log("Geoloc non autorizzata."));
   }
 })();
 
-// Console operativa
-(function() {
-  const outEl = document.getElementById('console-output');
-  const inEl  = document.getElementById('console-input');
-  if (!outEl || !inEl) return;
-
-  function log(line) {
-    outEl.textContent += "\n" + line;
-    outEl.scrollTop = outEl.scrollHeight;
+// Console
+(function(){
+  const out=document.getElementById("console-output");
+  const input=document.getElementById("console-input");
+  function log(t){out.textContent+="\n"+t; out.scrollTop=out.scrollHeight;}
+  async function run(cmd){
+    const p=cmd.split(" "); const c=p[0];
+    if(c==="help"){log("help, echo, open, ping"); return;}
+    if(c==="echo"){log(p.slice(1).join(" ")); return;}
+    if(c==="open"){window.open(p[1],"_blank"); log("Apro "+p[1]); return;}
+    if(c==="ping"){try{await fetch(p[1],{mode:"no-cors"}); log("Ping inviato");}catch(e){log("Errore");} return;}
+    log("Comando non valido");
   }
-
-  async function runCommand(cmd) {
-    const parts = cmd.trim().split(" ");
-    const base = parts[0];
-
-    if (!base) return;
-
-    if (base === "help") {
-      log("Comandi disponibili:");
-      log("  help                - mostra questo aiuto");
-      log("  echo <testo>        - stampa testo");
-      log("  open <url>          - apre URL in nuova scheda");
-      log("  ping <url>          - invia richiesta HTTP GET");
-      return;
-    }
-
-    if (base === "echo") {
-      log(parts.slice(1).join(" "));
-      return;
-    }
-
-    if (base === "open") {
-      const url = parts[1];
-      if (!url) { log("Uso: open <url>"); return; }
-      window.open(url, "_blank");
-      log("Apro: " + url);
-      return;
-    }
-
-    if (base === "ping") {
-      const url = parts[1];
-      if (!url) { log("Uso: ping <url>"); return; }
-      try {
-        await fetch(url, { method: "GET", mode: "no-cors" });
-        log("Ping inviato a: " + url);
-      } catch (e) {
-        log("Errore ping: " + e);
-      }
-      return;
-    }
-
-    log("Comando non riconosciuto. Digita 'help'.");
-  }
-
-  inEl.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-      const cmd = inEl.value;
-      log("> " + cmd);
-      inEl.value = "";
-      runCommand(cmd);
-    }
-  });
+  input.addEventListener("keydown",e=>{if(e.key==="Enter"){log("> "+input.value); run(input.value); input.value="";}});
 })();
 </script>
 
