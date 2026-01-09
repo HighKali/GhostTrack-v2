@@ -44,14 +44,31 @@
     {
       "id": "user-maria",
       "display_name": "Maria",
-      "impulsi": 10,
+      "impulsi": 20,
       "level": 1,
       "contributions": {
         "data_shared": 2,
         "help_given": 0,
         "nodes_active": 0
       },
-      "history": []
+      "history": [
+        {
+          "ts": "2026-01-09T16:29:22.231541Z",
+          "type": "earn",
+          "amount": 5,
+          "meta": {
+            "note": "test"
+          }
+        },
+        {
+          "ts": "2026-01-09T16:30:25.756435Z",
+          "type": "earn",
+          "amount": 5,
+          "meta": {
+            "note": "test"
+          }
+        }
+      ]
     },
     {
       "id": "pool-community",
