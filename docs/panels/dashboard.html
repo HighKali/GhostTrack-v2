@@ -1,84 +1,147 @@
-<div class="panel">
-  <h1>📡 GhostTrack‑v3 — Dashboard Nodo</h1>
-  <p class="subtitle">
-    Stato rapido del nodo di osservazione, crediti energetici e accesso ai domini principali.
-  </p>
+<div class="gt-dashboard">
 
-  <div class="dashboard-grid" style="margin-top: 12px;">
-    <div class="card">
-      <div class="card-title">
-        <span>API / Telemetria Nodo</span>
-        <span class="badge success" id="dash-api-mode">--</span>
-      </div>
-      <div class="card-metric" id="dash-api-status">In attesa…</div>
-      <div class="card-sub" id="dash-api-ts">Nessun dato ancora.</div>
-    </div>
+  <!-- Header principale -->
+  <section class="gt-section gt-section-main">
+    <h1>GhostTrack Console</h1>
+    <p class="gt-subtitle">
+      Costellazione operativa · Versione 3.0 · Nodo locale
+    </p>
 
-    <div class="card">
-      <div class="card-title">
-        <span>Crediti energetici</span>
-        <span class="badge">Wallet</span>
+    <div class="gt-status-row">
+      <div class="gt-status-card" id="gt-api-status-card">
+        <h2>Stato API</h2>
+        <p class="gt-status-line">
+          <span class="gt-pill" id="gt-api-pill">SENSORE</span>
+          <span id="gt-api-status-text">In attesa di rilevamento…</span>
+        </p>
+        <p class="gt-status-meta" id="gt-api-meta"></p>
       </div>
-      <div class="card-metric" id="dash-credits-total">--</div>
-      <div class="card-sub" id="dash-credits-delta">Variazione 24h: --</div>
-      <button class="button-inline" onclick="loadPanel('wallet')">
-        💳 Apri pannello Wallet
-      </button>
-    </div>
 
-    <div class="card">
-      <div class="card-title">
-        <span>Media & Live</span>
-        <span class="badge warning">Red Bull TV</span>
+      <div class="gt-status-card">
+        <h2>Ambiente</h2>
+        <p class="gt-status-line">
+          <span class="gt-pill gt-pill-env" id="gt-env-pill">Sconosciuto</span>
+        </p>
+        <ul class="gt-meta-list">
+          <li><strong>Host:</strong> <span id="gt-env-host"></span></li>
+          <li><strong>Base API:</strong> <span id="gt-env-base-url"></span></li>
+        </ul>
       </div>
-      <div class="card-sub">
-        Sessioni media possono essere collegate al wallet crediti per simulare consumo/ricarica energetica.
-      </div>
-      <button class="button-inline" onclick="loadPanel('media_live')">
-        🎥 Apri pannello Media & Live
-      </button>
-    </div>
 
-    <div class="card">
-      <div class="card-title">
-        <span>Documentazione</span>
-        <span class="badge">Wiki</span>
+      <div class="gt-status-card">
+        <h2>Documentazione</h2>
+        <ul class="gt-meta-list">
+          <li><a href="/docs/INDEX.md" target="_blank">Indice Documentazione</a></li>
+          <li><a href="/docs/EXECUTIVE_REPORT.md" target="_blank">Executive Report</a></li>
+          <li><a href="/docs/ROADMAP.md" target="_blank">Roadmap Operativa</a></li>
+        </ul>
+        <p class="gt-status-meta">
+          Se un link è 404, il modulo documentale non è stato ancora materializzato.
+        </p>
       </div>
-      <div class="card-sub">
-        Accedi alla documentazione tecnica, all'executive report, alla roadmap e alla pagina About direttamente dal menu.
-      </div>
-      <button class="button-inline" onclick="window.open('docs/INDEX.md','_blank')">
-        📘 Apri Documentazione Tecnica
-      </button>
     </div>
-  </div>
+  </section>
+
+  <!-- Costellazione moduli: vista sintetica -->
+  <section class="gt-section">
+    <h2>Costellazione Moduli</h2>
+    <p class="gt-section-desc">
+      Ogni modulo è un dominio operativo. La dashboard ti mostra lo stato sintetico e ti lascia entrare nel pannello dedicato.
+    </p>
+
+    <div class="gt-modules-grid">
+
+      <!-- CyberDefense -->
+      <article class="gt-module-card" data-panel="cyberdefense">
+        <h3>CyberDefense</h3>
+        <p class="gt-module-tagline">Superficie di attacco, allarmi, difesa attiva.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">Non connesso</span></li>
+          <li><strong>Pannello:</strong> <code>panels/cyberdefense.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('cyberdefense')">
+          Apri pannello
+        </button>
+      </article>
+
+      <!-- Orbital & Space -->
+      <article class="gt-module-card" data-panel="orbital_space">
+        <h3>Orbital &amp; Space</h3>
+        <p class="gt-module-tagline">Orbite, feed satellitari, spazio vicino.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">In attesa</span></li>
+          <li><strong>Pannello:</strong> <code>panels/orbital_space.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('orbital_space')">
+          Apri pannello
+        </button>
+      </article>
+
+      <!-- Agro & Ambiente -->
+      <article class="gt-module-card" data-panel="agro_ambiente">
+        <h3>Agro &amp; Ambiente</h3>
+        <p class="gt-module-tagline">Sensori locali, meteo, territorio, suolo.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">Nodo locale</span></li>
+          <li><strong>Pannello:</strong> <code>panels/agro_ambiente.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('agro_ambiente')">
+          Apri pannello
+        </button>
+      </article>
+
+      <!-- Resilienza & Emergenza -->
+      <article class="gt-module-card" data-panel="resilienza">
+        <h3>Resilienza &amp; Emergenza</h3>
+        <p class="gt-module-tagline">Continuità operativa, allarmi, piani B.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">In attesa di sensori</span></li>
+          <li><strong>Pannello:</strong> <code>panels/resilienza.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('resilienza')">
+          Apri pannello
+        </button>
+      </article>
+
+      <!-- Reti & Mesh -->
+      <article class="gt-module-card" data-panel="reti_mesh">
+        <h3>Reti &amp; Mesh</h3>
+        <p class="gt-module-tagline">Topologia, link radio, percorsi.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">Nodo singolo</span></li>
+          <li><strong>Pannello:</strong> <code>panels/reti_mesh.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('reti_mesh')">
+          Apri pannello
+        </button>
+      </article>
+
+      <!-- AI & Analisi -->
+      <article class="gt-module-card" data-panel="ai_analisi">
+        <h3>AI &amp; Analisi</h3>
+        <p class="gt-module-tagline">Inferenze, correlazioni, scenari.</p>
+        <ul class="gt-module-meta">
+          <li><strong>Stato:</strong> <span class="gt-chip gt-chip-off">Non attivo</span></li>
+          <li><strong>Pannello:</strong> <code>panels/ai_analisi.html</code></li>
+        </ul>
+        <button class="gt-btn" onclick="gtOpenPanel('ai_analisi')">
+          Apri pannello
+        </button>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Log operativo locale -->
+  <section class="gt-section">
+    <h2>Log operativo locale</h2>
+    <p class="gt-section-desc">
+      Ultimi eventi del nodo locale. Per log completi usa direttamente la shell del nodo.
+    </p>
+    <pre class="gt-log-box" id="gt-local-log">
+[GhostTrack] Console avviata.
+[GhostTrack] In attesa di aggiornare lo stato moduli da /api/status (se definito).
+    </pre>
+  </section>
+
 </div>
-
-<script>
-// Mini hook per aggiornare i widget dashboard in base allo status API
-(function syncDashboardStatus() {
-  const textEl = document.getElementById("api-status-text");
-  const dotEl = document.getElementById("api-status-indicator");
-  const dashStatus = document.getElementById("dash-api-status");
-  const dashTs = document.getElementById("dash-api-ts");
-  const dashMode = document.getElementById("dash-api-mode");
-
-  if (!textEl || !dashStatus || !dashMode) return;
-
-  setTimeout(() => {
-    dashStatus.textContent = textEl.textContent.replace("API: ", "");
-    if (dotEl && dotEl.classList.contains("online")) {
-      dashMode.textContent = "Online";
-    } else if (dotEl && dotEl.classList.contains("degraded")) {
-      dashMode.textContent = "Degradato";
-    } else {
-      dashMode.textContent = "Offline";
-    }
-    // Timestamp se presente nel testo
-    const parts = textEl.textContent.split("—");
-    if (parts.length > 1) {
-      dashTs.textContent = "Ultimo aggiornamento " + parts[1].trim();
-    }
-  }, 600);
-})();
-</script>
