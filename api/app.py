@@ -1,100 +1,106 @@
-import json
-import pathlib
-from datetime import datetime
+from flask import Flask
+import subprocess, json, time, requests
 
-from flask import Flask, jsonify
-from flask_cors import CORS
+app = Flask(__name__)
 
-BASE_DIR = pathlib.Path(__file__).resolve().parents[1]
-STATIC_DIR = BASE_DIR / "webapp" / "static"
-CONFIG_PATH = STATIC_DIR / "config.json"
-
-app = Flask(
-    __name__,
-    static_folder=str(STATIC_DIR),
-    static_url_path=""
-)
-
-CORS(app)
-
-
-def load_config():
-    if not CONFIG_PATH.exists():
-        return {}
-    with CONFIG_PATH.open("r", encoding="utf-8") as f:
-        return json.load(f)
-
-
+# ============================
+#  CORE STATUS
+# ============================
 @app.route("/api/status")
-def status():
-    cfg = load_config()
-    return jsonify({
-        "status": "ok",
+def api_status():
+    return {
+        "environment": "production",
         "service": "GhostTrack WebApp",
-        "version": cfg.get("version", "3.0"),
-        "environment": cfg.get("environment", "production"),
-        "timestamp": datetime.utcnow().isoformat() + "Z"
-    })
-
-
-@app.route("/api/starlink/status")
-def starlink_status():
-    # Qui aggancerai la telemetria reale Starlink
-    # Valori placeholder COERENTI e stabili, pronti da sostituire con dati veri
-    data = {
-        "latency_ms": 45,
-        "download_mbps": 120,
-        "upload_mbps": 20,
-        "uptime_h": 5.5,
-        "credits": 320,
-        "mode": "normal"
+        "status": "ok",
+        "timestamp": time.time(),
+        "version": "3.0"
     }
-    return jsonify(data)
 
-
-@app.route("/api/economist/summary")
-def economist_summary():
-    # Qui potrai calcolare i crediti da DB / serie storiche
-    data = {
-        "total_credits": 12450,
-        "today_credits": 180,
-        "starlink_bonus": 22
+# ============================
+#  CYBERDEFENSE
+# ============================
+@app.route("/api/cyberdefense/status")
+def cyberdefense_status():
+    return {
+        "module": "cyberdefense",
+        "status": "online",
+        "uptime": "API OK",
+        "threats_detected": 0
     }
-    return jsonify(data)
 
+# ============================
+#  ORBITAL & SPACE
+# ============================
+@app.route("/api/orbital_space/status")
+def orbital_space_status():
+    return {
+        "module": "orbital_space",
+        "status": "online",
+        "satellites_visible": 12,
+        "source": "GNSS simulation"
+    }
 
-@app.route("/api/wallet/summary")
-def wallet_summary():
-    # Qui potrai collegare un wallet reale o un ledger di crediti
-    data = {
-        "balance": 9400,
-        "last_tx": {
-            "type": "earn",
-            "amount": 45,
-            "source": "starlink_hybrid",
-            "timestamp": datetime.utcnow().isoformat() + "Z"
+# ============================
+#  AGRO & AMBIENTE
+# ============================
+@app.route("/api/agro_ambiente/status")
+def agro_ambiente_status():
+    try:
+        url = "https://api.open-meteo.com/v1/forecast?latitude=45.0&longitude=9.2&current_weather=true"
+        data = requests.get(url).json()
+        return {
+            "module": "agro_ambiente",
+            "status": "online",
+            "temperature": data["current_weather"]["temperature"],
+            "windspeed": data["current_weather"]["windspeed"],
+            "weathercode": data["current_weather"]["weathercode"]
         }
+    except:
+        return {"module": "agro_ambiente", "status": "offline"}
+
+# ============================
+#  RESILIENZA
+# ============================
+@app.route("/api/resilienza/status")
+def resilienza_status():
+    return {
+        "module": "resilienza",
+        "status": "online",
+        "heartbeat": "alive",
+        "timestamp": time.time()
     }
-    return jsonify(data)
 
+# ============================
+#  RETI & MESH
+# ============================
+@app.route("/api/reti_mesh/status")
+def reti_mesh_status():
+    target = "8.8.8.8"
+    try:
+        result = subprocess.run(["ping", "-c", "1", target], capture_output=True, text=True)
+        if result.returncode == 0:
+            latency = result.stdout.split("time=")[1].split(" ")[0]
+            return {
+                "module": "reti_mesh",
+                "status": "online",
+                "latency_ms": latency
+            }
+        else:
+            return {"module": "reti_mesh", "status": "offline"}
+    except:
+        return {"module": "reti_mesh", "status": "error"}
 
-@app.route("/api/podcast/list")
-def podcast_list():
-    cfg = load_config()
-    streams = cfg.get("podcast", {}).get("default_streams", [])
-    return jsonify({
-        "streams": streams
-    })
-
-
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def serve(path):
-    target = STATIC_DIR / path
-    if path and target.exists():
-        return app.send_static_file(path)
-    return app.send_static_file("index.html")
-
+# ============================
+#  AI & ANALISI
+# ============================
+@app.route("/api/ai_analisi/status")
+def ai_analisi_status():
+    return {
+        "module": "ai_analisi",
+        "status": "online",
+        "analysis": "ready",
+        "confidence": 0.99
+    }
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9090)
