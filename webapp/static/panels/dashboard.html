@@ -143,5 +143,27 @@
 [GhostTrack] In attesa di aggiornare lo stato moduli da /api/status (se definito).
     </pre>
   </section>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const config = await fetch("config.json").then(r => r.json());
+    const baseUrl = resolveApiBaseUrl(config);
+
+    await gtLoadSensors();
+
+    const status = await gtCheckModuleStatus("resilienza", baseUrl);
+
+    const box = document.createElement("pre");
+    box.className = "gt-log-box";
+
+    if (!status || status.status === "offline") {
+        box.textContent = "[Resilienza] Modulo offline o sensore non raggiungibile.";
+    } else {
+        box.textContent = JSON.stringify(status.data, null, 2);
+    }
+
+    document.body.appendChild(box);
+});
+</script>
+
 
 </div>

@@ -1,3 +1,42 @@
+// ===============================
+//  GHOSTTRACK SENSORS ENGINE
+// ===============================
+
+async function gtLoadSensors() {
+    try {
+        const res = await fetch("sensors.json");
+        const sensors = await res.json();
+        window.GT_SENSORS = sensors;
+        console.log("[GhostTrack] Sensors registry loaded:", sensors);
+        return sensors;
+    } catch (err) {
+        console.error("[GhostTrack] Failed to load sensors.json", err);
+        return null;
+    }
+}
+
+async function gtCheckModuleStatus(moduleName, baseUrl) {
+    if (!window.GT_SENSORS) return null;
+
+    const mod = window.GT_SENSORS.modules[moduleName];
+    if (!mod) return null;
+
+    const sensor = mod.sensors[0];
+    if (!sensor) return null;
+
+    const url = baseUrl + sensor.endpoint;
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return { status: "offline", code: res.status };
+
+        const data = await res.json();
+        return { status: "online", data };
+    } catch (err) {
+        return { status: "offline", error: err };
+    }
+}
+
 const CONFIG_URL = "config.json";
 
 let CONFIG = {
