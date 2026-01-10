@@ -1,13 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
   <meta charset="utf-8">
   <title>GhostTrack WebApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GhostTrack WebApp</h1>
-  <p>UI ricostruita. Collegamento API in corso...</p>
-  <script type="module" src="config.js"></script>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="logo">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">GhostTrack</div>
+          <div class="logo-subtitle">Operational Console</div>
+        </div>
+      </div>
+      <nav id="menu">
+        <button class="menu-item" data-panel="dashboard">
+          <span class="icon">📡</span><span class="label">Dashboard</span>
+        </button>
+        <button class="menu-item" data-panel="economist">
+          <span class="icon">📈</span><span class="label">Economist</span>
+        </button>
+        <button class="menu-item" data-panel="orchestrator">
+          <span class="icon">🧭</span><span class="label">Orchestrator</span>
+        </button>
+        <button class="menu-item" data-panel="wallet">
+          <span class="icon">💳</span><span class="label">Wallet</span>
+        </button>
+        <button class="menu-item" data-panel="podcast_liberi">
+          <span class="icon">🎵</span><span class="label">Podcast liberi</span>
+        </button>
+        <button class="menu-item" data-panel="starlink_control">
+          <span class="icon">🛰️</span><span class="label">Starlink Control</span>
+        </button>
+        <div class="menu-separator"></div>
+        <button class="menu-item" data-panel="settings">
+          <span class="icon">⚙️</span><span class="label">Impostazioni</span>
+        </button>
+      </nav>
+    </aside>
+    <main id="main">
+      <header id="topbar">
+        <div id="topbar-title">GhostTrack Console</div>
+        <div id="topbar-status">
+          <span id="api-status-indicator" class="status-dot offline"></span>
+          <span id="api-status-text">API: sconosciuto</span>
+        </div>
+      </header>
+      <section id="panel-container">
+        <!-- I pannelli vengono caricati dinamicamente -->
+      </section>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
