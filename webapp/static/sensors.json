@@ -6,77 +6,42 @@
       "description": "Superficie di attacco, allarmi, difesa attiva.",
       "protocols": ["http"],
       "sensors": [
-        {
-          "id": "cyberdefense_uptime",
-          "type": "http",
-          "endpoint": "/api/cyberdefense/status",
-          "description": "Stato sintetico del modulo CyberDefense."
-        }
+        { "id": "cyberdefense_uptime", "type": "http", "endpoint": "/api/cyberdefense/status" }
       ]
     },
-
     "orbital_space": {
       "description": "Orbite, feed satellitari, spazio vicino.",
       "protocols": ["http", "https"],
       "sensors": [
-        {
-          "id": "orbital_space_status",
-          "type": "http",
-          "endpoint": "/api/orbital_space/status",
-          "description": "Stato sintetico del modulo Orbital & Space."
-        }
+        { "id": "orbital_space_status", "type": "http", "endpoint": "/api/orbital_space/status" }
       ]
     },
-
     "agro_ambiente": {
       "description": "Sensori locali, meteo, territorio, suolo.",
       "protocols": ["http", "mqtt"],
       "sensors": [
-        {
-          "id": "agro_env_status",
-          "type": "http",
-          "endpoint": "/api/agro_ambiente/status",
-          "description": "Stato sintetico del modulo Agro & Ambiente."
-        }
+        { "id": "agro_env_status", "type": "http", "endpoint": "/api/agro_ambiente/status" }
       ]
     },
-
     "resilienza": {
       "description": "Continuità operativa, allarmi, piani B.",
       "protocols": ["http"],
       "sensors": [
-        {
-          "id": "resilience_core",
-          "type": "http",
-          "endpoint": "/api/resilienza/status",
-          "description": "Heartbeat e stato di resilienza del nodo GhostTrack."
-        }
+        { "id": "resilience_core", "type": "http", "endpoint": "/api/resilienza/status" }
       ]
     },
-
     "reti_mesh": {
       "description": "Topologia, link radio, percorsi.",
       "protocols": ["http", "icmp"],
       "sensors": [
-        {
-          "id": "network_topology_status",
-          "type": "http",
-          "endpoint": "/api/reti_mesh/status",
-          "description": "Stato sintetico del dominio reti e mesh."
-        }
+        { "id": "network_topology_status", "type": "http", "endpoint": "/api/reti_mesh/status" }
       ]
     },
-
     "ai_analisi": {
       "description": "Inferenze, correlazioni, scenari.",
       "protocols": ["http"],
       "sensors": [
-        {
-          "id": "ai_analysis_status",
-          "type": "http",
-          "endpoint": "/api/ai_analisi/status",
-          "description": "Stato sintetico del modulo AI & Analisi."
-        }
+        { "id": "ai_analysis_status", "type": "http", "endpoint": "/api/ai_analisi/status" }
       ]
     }
   }
